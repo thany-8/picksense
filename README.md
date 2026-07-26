@@ -24,6 +24,8 @@ Not a full robotic pipeline (no arm control, no physical grasping). Just the **p
 | | Likely reason for difficulty: occlusion, clutter, overlap, low visibility |
 | | Visual explanation (attention/saliency map) |
 
+
+
 ## Why This Design
 
 - **Decoupled from grasp planning** — this component sits in front of any downstream grasp-pose estimator; it doesn't compute exact grasp coordinates or control hardware.
@@ -57,6 +59,18 @@ Not a full robotic pipeline (no arm control, no physical grasping). Just the **p
 ## Deployment Plan
 
 A FastAPI inference service behind a lightweight web app (Streamlit or React). A user uploads a bin image and gets back: the predicted category, class probabilities, an attention/saliency overlay, and a recommended action (continue / adjust approach / select another object / request human help).
+## Example output:
+```
+Camera image
+
+Pickability: Difficult
+Reason: 76% occlusion
+Confidence: 89%
+
+Recommended decision:
+Change camera angle before attempting pick
+
+```
 
 ## Tech Stack
 
