@@ -1,0 +1,42 @@
+# --- Datasets & large artifacts (do NOT commit downloaded data) -------------
+/data/raw/*
+/data/processed/*
+/data/samples/*
+!/data/raw/.gitkeep
+!/data/processed/.gitkeep
+!/data/samples/.gitkeep
+*.zip
+*.tar
+*.tar.gz
+
+# Model checkpoints / exports
+/models/*
+!/models/.gitkeep
+*.pt
+*.pth
+*.onnx
+*.ckpt
+
+# Reports (keep the folder, ignore heavy generated outputs)
+/reports/figures/*
+!/reports/figures/.gitkeep
+
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# --- Jupyter ----------------------------------------------------------------
+.ipynb_checkpoints/
+
+# --- Hugging Face / caches --------------------------------------------------
+.cache/
+.huggingface/
+
+# --- OS / editor ------------------------------------------------------------
+.DS_Store
+.vscode/
+.idea/
