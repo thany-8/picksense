@@ -1,313 +1,181 @@
 # PickSense
-**A computer vision project that uses CNNs and Vision Transformers to study visual accessibility for robotic perception — how well a model can recognize the visual conditions (starting with occlusion) that make an object harder for a robotic vision system to perceive.**
 
----
+PickSense is a computer vision learning project that explores whether a Vision Transformer (ViT) can classify an object's **pickability from visual occlusion**.
 
-## The Problem
 
-Before a robot can identify, track, or interact with an object, it first has to **see that object clearly enough**.
 
-In real environments this becomes difficult when an object is:
+## Project objective
 
-* partially hidden by another object,
-* surrounded by visual clutter,
-* very small in the camera view,
-* or captured under poor lighting.
+The current objective is to classify an image into one of three occlusion-based pickability categories:
 
-PickSense focuses on this **perception step before robotic manipulation**. Rather than predicting grasp coordinates or controlling a robotic arm, it studies whether a vision model can recognize the visual conditions that make an object easier or harder for a robot to perceive.
+| Class | OpenLORIS tasks | Approximate occlusion |
+|---|---|---:|
+| `clear` | `task1`, `task2`, `task3` | 0% |
+| `partially_occluded` | `task4`, `task5`, `task6` | 25% |
+| `heavily_occluded` | `task7`, `task8`, `task9` | 50% |
 
-The central question behind the project:
+Occlusion is used as a **proxy for pickability**:
 
-> **How well can CNNs and Vision Transformers recognize changes in object visibility, especially as occlusion increases?**
+- A clear object is assumed to be easier to identify and pick.
+- A partially occluded object may be more difficult to pick.
+- A heavily occluded object is assumed to be the most difficult to pick.
 
----
-
-## What This Project Builds
-
-PickSense is an **image-classification project**. The first version focuses on **occlusion-level classification**.
-
-| Input | Prediction |
-| ------------------------------------ | ------------------ |
-| RGB image containing a target object | No / low occlusion |
-| | Partial occlusion  |
-| | Heavy occlusion    |
-
-The OpenLORIS-Object dataset grades occlusion into **9 ordered levels** (`task1`–`task9`). PickSense starts by grouping these into a few coarse bands so the first experiment stays a clean, well-posed classification problem; the graded levels can also be used directly in later experiments.
-
-Future experiments may extend the system to additional visual-accessibility factors already labeled in the dataset:
-
-* surrounding clutter,
-* apparent object size,
-* illumination.
-
-These factors describe the quality of the robot's *visual access* to an object rather than whether the object is physically graspable.
-
----
+> This project currently predicts visual occlusion categories. It does not yet measure grasp geometry, physical reachability, collision risk, or real robotic grasp success.
 
 ## Dataset
 
-PickSense uses the **OpenLORIS-Object** robotic-vision dataset, downloaded via `kagglehub` (`zhedamai/openlorisobject`, ~18 GB).
+The notebook downloads the OpenLORIS-Object dataset from Kaggle:
 
-It contains images of everyday household objects (cups, bowls, bottles, scissors, toys, …) captured under controlled, pre-labeled environmental conditions, organized into factor folders:
+[OpenLORIS-Object Dataset](https://www.kaggle.com/datasets/zhedamai/openlorisobject)
 
-| Factor | Folder | What it varies |
-| ------------ | --------------- | ------------------------------------------------------------ |
-| Occlusion | `occlusion/` | how much of the object is hidden — 9 graded levels (`task1`–`task9`) |
-| Clutter | `clutter/` | amount of surrounding visual clutter |
-| Object size | `pixel/` | how large the object appears in the frame |
-| Illumination | `illumination/` | lighting strength |
-| Combined | `sequence/` | several factors varied together |
+The relevant images are taken from the dataset's `occlusion` condition. The original OpenLORIS train and test splits are preserved.
 
-Each factor is split into `train` / `test` (with `sequence` also providing `validation`).
-
-A major reason for choosing this dataset is that these environmental conditions **already have defined levels**, allowing PickSense to use existing labels instead of creating subjective pickability labels from raw robotics metadata. For the first experiment, PickSense focuses only on **occlusion** so that the project remains a clear image-classification problem. Additional factors can be introduced after the initial pipeline works.
-
----
-
-## Why This Design
-
-### Keep the problem focused
-
-PickSense does not attempt to solve grasp planning, object pose estimation, or robot control:
+The notebook reorganizes the selected images into an `ImageFolder`-compatible structure:
 
 ```text
-Camera image
-    ↓
-Visual perception
-    ↓
-PickSense  →  assess viewing condition (e.g. occlusion level)
-    ↓
-Downstream robotic system
+data/
+└── pickability_occlusion/
+    ├── train/
+    │   ├── clear/
+    │   ├── partially_occluded/
+    │   └── heavily_occluded/
+    └── test/
+        ├── clear/
+        ├── partially_occluded/
+        └── heavily_occluded/
 ```
 
-This keeps the project focused on computer vision while still connecting it to a meaningful robotics problem.
+Symbolic links are used by default to avoid duplicating the image files.
 
-### Use existing labels
+## Current workflow
 
-The original version of PickSense required creating custom labels from visibility measurements, object masks, and scene statistics. The redesigned project uses a dataset with **defined environmental-condition labels**, making the training target easier to understand and evaluate.
+The notebook currently covers:
 
-### Learn Vision Transformers deeply
+1. Installing and importing PyTorch dependencies.
+2. Downloading OpenLORIS-Object with `kagglehub`.
+3. Inspecting the dataset and sample images.
+4. Locating the OpenLORIS occlusion subset.
+5. Converting its tasks into three pickability labels.
+6. Creating PyTorch `ImageFolder` datasets.
+7. Resizing images to `224 × 224`.
+8. Creating training and testing `DataLoader` objects.
+9. Visualizing image batches and labels.
+10. Studying and replicating the Vision Transformer architecture.
 
-One of the main goals of the project is to implement a Vision Transformer **from scratch in PyTorch** while following the architecture introduced in the ViT paper. The project therefore focuses on understanding:
+## Model approach
 
-* image patches,
-* patch embeddings,
-* positional embeddings,
-* the class token,
-* multi-head self-attention,
-* transformer encoder blocks,
-* and the classification head.
+The project follows the ViT paper-replication approach from Learn PyTorch.
 
----
+A ViT processes an image by:
 
-## Approach
+1. Resizing the image to `224 × 224`.
+2. Dividing it into fixed-size patches.
+3. Converting each patch into an embedding.
+4. Adding class and positional embeddings.
+5. Processing the sequence with Transformer encoder blocks.
+6. Using the class token to predict one of the three output classes.
 
-The work is developed through Jupyter notebooks that follow the complete machine-learning workflow, supported by small helper modules in `src/`.
+The initial preprocessing pipeline is:
 
-### 1. Data Exploration
-
-Explore the images and labels and understand how different occlusion levels affect object visibility.
-
-### 2. Data Preparation
-
-Build train, validation, and test sets and apply the image transformations each model expects.
-
-### 3. CNN Baseline
-
-Train a small convolutional neural network to establish a baseline. The CNN provides a reference point for determining whether the Vision Transformer offers an improvement.
-
-### 4. Vision Transformer From Scratch
-
-Implement a compact Vision Transformer in PyTorch, including:
-
-```text
-Image
-  ↓
-Patches
-  ↓
-Patch Embeddings
-  ↓
-Class Token + Positional Embeddings
-  ↓
-Transformer Encoder
-  ↓
-Classification Head
-  ↓
-Occlusion level
+```python
+manual_transforms = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+])
 ```
 
-### 5. Model Comparison
+The current batch size is `32`.
 
-Compare the CNN and Vision Transformer using metrics such as:
-
-* accuracy,
-* precision,
-* recall,
-* macro F1-score,
-* confusion matrix.
-
-### 6. Transfer Learning
-
-Fine-tune a pretrained Vision Transformer and compare it with the model trained from scratch.
-
-### 7. Error Analysis
-
-Inspect incorrect predictions to understand which visual situations are most difficult for each architecture. Potential extensions include attention visualization, confidence calibration, clutter classification, and object-scale classification.
-
----
-
-## Key Research Questions
-
-* **Can a CNN or Vision Transformer recognize the visual conditions that make an object harder for a robotic vision system to perceive?** (the central question)
-* How accurately can a vision model recognize different levels of object occlusion?
-* How does a CNN compare with a Vision Transformer on this task?
-* Does a ViT trained from scratch perform competitively on this dataset?
-* How much does pretrained Vision Transformer knowledge improve performance?
-* Which types of occlusion cause the most classification errors?
-* Does model confidence decrease as visual access to the object becomes more difficult?
-
-Future experiments may also investigate:
-
-* How does surrounding clutter affect model performance?
-* How does apparent object size affect recognition?
-* Are Vision Transformers more robust than CNNs as viewing conditions become more difficult?
-
----
-
-## Example Prediction
-
-```text
-Input:
-RGB image of an object
-
-PickSense Assessment
-Occlusion level:  Partial
-Confidence:       89%
-```
-
-A future, multi-factor version could provide a broader visual assessment:
-
-```text
-Visual Accessibility
-Occlusion:     Partial
-Clutter:       Complex
-Object scale:  Medium
-Confidence:    87%
-```
-
-These predictions describe **visual conditions only** and should not be interpreted as guarantees of robotic grasp success.
-
----
-
-## Models
-
-The project will compare:
-
-| Model | Purpose |
-| ------------------------------- | ----------------------------------------- |
-| Small CNN | Baseline |
-| Vision Transformer from scratch | Understand and reproduce the ViT architecture |
-| Pretrained Vision Transformer | Study transfer learning |
-
-The main comparison is:
-
-```text
-CNN
-  vs.
-ViT from scratch
-  vs.
-Pretrained ViT
-```
-
----
-
-## Tech Stack
-
-**Machine learning**
-
-* Python
-* PyTorch
-* TorchVision
-* NumPy
-* pandas
-* scikit-learn
-* Pillow, SciPy
-
-**Data & experimentation**
-
-* kagglehub (dataset download)
-* Jupyter / Google Colab
-* Matplotlib
-
-**Dataset**
-
-* OpenLORIS-Object
-
----
-
-## Repository Structure
+## Repository structure
 
 ```text
 picksense/
-├── data/
-│   ├── raw/          # OpenLORIS-Object (downloaded via kagglehub)
-│   ├── processed/    # occlusion train / val / test splits
-│   └── samples/      # small image samples for quick checks
 ├── notebooks/
-│   └── picksense.ipynb    # Implementation from scratch
-├── src/              # helper modules: data_setup, engine, model, train, utils
-├── models/           # saved checkpoints
-├── reports/          # figures, metrics, confusion matrices
-├── requirements.txt
-├── README.md
-└── .gitignore
+│   └── picksense.ipynb
+├── data/
+│   ├── raw/
+│   │   └── openloris/
+│   └── pickability_occlusion/
+└── README.md
 ```
 
-The workflow is notebook-driven — a data-download notebook plus a main experiment notebook — with reusable logic factored into `src/`, documenting the complete learning and experimentation process from dataset exploration through model evaluation.
+The `data` directories are created when the notebook is executed and should generally not be committed to Git.
 
----
+## Getting started
 
-## Project Roadmap
+### Option 1: Google Colab
 
-* [ ] Explore the OpenLORIS-Object dataset
-* [ ] Prepare the occlusion-classification dataset
-* [ ] Visualize and verify class labels
-* [ ] Build train / validation / test sets
-* [ ] Train the CNN baseline
-* [ ] Implement the Vision Transformer from scratch
-* [ ] Compare CNN vs. custom ViT
-* [ ] Fine-tune a pretrained ViT
-* [ ] Evaluate using accuracy, macro F1, and a confusion matrix
-* [ ] Perform error analysis
-* [ ] Add attention visualization
-* [ ] Experiment with clutter or object-scale classification
+The notebook currently uses paths beginning with:
 
----
+```text
+/content/picksense/
+```
 
-## Current Status
+For that reason, Google Colab is the simplest environment for running the notebook in its current form.
 
-🚧 **Dataset exploration and pipeline design.**
+Clone the repository in Colab:
 
-Current milestone:
+```bash
+git clone https://github.com/thany-8/picksense.git
+cd picksense
+```
 
-> Prepare the labeled occlusion dataset and establish the CNN baseline before beginning the Vision Transformer implementation.
+Open and run:
 
----
+```text
+notebooks/picksense.ipynb
+```
 
-## Limitations
+### Option 2: Local development
 
-PickSense is a computer-vision research and portfolio project, not a complete robotic-manipulation system. It does **not**:
+Clone the repository:
 
-* control a robotic arm,
-* calculate grasp coordinates,
-* predict physical grasp success,
-* account for object weight, material, or stability,
-* guarantee that a visually accessible object can be safely picked.
+```bash
+git clone https://github.com/thany-8/picksense.git
+cd picksense
+```
 
-Instead, PickSense focuses specifically on the **visual perception conditions that occur before robotic interaction**.
+Create and activate a virtual environment on macOS:
 
----
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
-## Project Goal
+Install the main dependencies:
 
-PickSense combines a practical robotic-vision problem with a from-scratch implementation of the Vision Transformer architecture. The goal is not only to achieve good classification performance, but also to understand **when and why CNNs and Vision Transformers behave differently as visual access to an object becomes more challenging**.
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip install torch torchvision torchaudio matplotlib pillow torchinfo kagglehub jupyter
+```
+
+Start Jupyter:
+
+```bash
+jupyter notebook notebooks/picksense.ipynb
+```
+
+When running locally, update the notebook's `/content/picksense/...` paths or replace them with paths relative to the repository root.
+
+## Planned work
+
+- Complete the ViT architecture implementation.
+- Train the model on the three occlusion classes.
+- Track training and testing loss and accuracy.
+- Add a confusion matrix and per-class metrics.
+- Evaluate predictions on unseen images.
+- Compare a custom ViT with a pretrained ViT model.
+- Add data augmentation and normalization.
+- Save trained model weights.
+- Move reusable training and data-processing code into Python modules.
+- Investigate labels based on real robotic grasp success rather than occlusion alone.
+
+## Project status
+
+This project is currently under development and is intended for learning and experimentation.
+
+The dataset preparation and `DataLoader` pipeline are implemented. The ViT architecture, training process, and final evaluation are still being developed.
+
+
+
+The OpenLORIS-Object dataset remains subject to its original license and terms of use.
