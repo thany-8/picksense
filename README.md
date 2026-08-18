@@ -24,43 +24,44 @@ Occlusion is used as a **proxy for pickability**:
 
 ## Dataset
 
-The notebook downloads the OpenLORIS-Object dataset from Kaggle:
+The dataset is prepared by `notebooks/00_download_prepare_data.ipynb`, which downloads the OpenLORIS-Object dataset from Kaggle:
 
 [OpenLORIS-Object Dataset](https://www.kaggle.com/datasets/zhedamai/openlorisobject)
 
 The relevant images are taken from the dataset's `occlusion` condition. The original OpenLORIS train and test splits are preserved.
 
-The notebook reorganizes the selected images into an `ImageFolder`-compatible structure:
+Everything is stored **permanently on Google Drive** (not under `/content/`, which is wiped when the Colab runtime disconnects):
 
 ```text
-data/
-└── pickability_occlusion/
-    ├── train/
-    │   ├── clear/
-    │   ├── partially_occluded/
-    │   └── heavily_occluded/
-    └── test/
-        ├── clear/
-        ├── partially_occluded/
-        └── heavily_occluded/
+/content/drive/MyDrive/PickSense/data/
+├── raw/openloris/occlusion/     # OpenLORIS occlusion subset (downloaded once)
+└── picksense_mini/              # small 300-image development set
+    ├── train/{clear, partially_occluded, heavily_occluded}/   # 75 each
+    └── test/{clear, partially_occluded, heavily_occluded}/    # 25 each
 ```
 
-Symbolic links are used by default to avoid duplicating the image files.
+`picksense_mini` is a small, balanced **development** dataset (225 train + 75 test = 300 images) used to build and debug the CNN / ViT pipeline quickly. Its images are **copied** (not symlinked) so they persist on Drive, and sampling uses `random.seed(42)` for reproducibility. Train images are drawn from `occlusion/train` and test images from `occlusion/test`, so no image is shared between the two splits.
 
 ## Current workflow
 
-The notebook currently covers:
+Dataset preparation and modelling are split into two notebooks so the dataset is downloaded **once** instead of on every runtime restart.
 
-1. Installing and importing PyTorch dependencies.
-2. Downloading OpenLORIS-Object with `kagglehub`.
-3. Inspecting the dataset and sample images.
-4. Locating the OpenLORIS occlusion subset.
-5. Converting its tasks into three pickability labels.
-6. Creating PyTorch `ImageFolder` datasets.
-7. Resizing images to `224 × 224`.
-8. Creating training and testing `DataLoader` objects.
-9. Visualizing image batches and labels.
-10. Studying and replicating the Vision Transformer architecture.
+**`00_download_prepare_data.ipynb`** — run once, or whenever the data changes:
+
+1. Mounts Google Drive.
+2. Downloads OpenLORIS-Object with `kagglehub` **only if it is missing**.
+3. Persists the `occlusion` subset to Drive so it survives runtime restarts.
+4. Builds the balanced `picksense_mini` dataset **only if it is missing**.
+5. Prints a verification summary (paths, per-class counts, totals, disk size).
+
+**`01_picksense_main.ipynb`** — normal work; it **never downloads** anything:
+
+1. Mounts Google Drive and checks that `picksense_mini` exists (otherwise it tells you to run `00_download_prepare_data.ipynb` first).
+2. Installs and imports PyTorch dependencies.
+3. Creates PyTorch `ImageFolder` datasets.
+4. Resizes images to `224 × 224` and builds training/testing `DataLoader` objects.
+5. Replicates the Vision Transformer (ViT) architecture from the Learn PyTorch course.
+6. Trains and evaluates the model.
 
 ## Model approach
 
@@ -91,27 +92,27 @@ The current batch size is `32`.
 ```text
 picksense/
 ├── notebooks/
-│   └── picksense.ipynb
-├── data/
-│   ├── raw/
-│   │   └── openloris/
-│   └── pickability_occlusion/
+│   ├── 00_download_prepare_data.ipynb   # run once: download + build picksense_mini on Drive
+│   ├── 01_picksense_main.ipynb          # normal work: checks data, then trains the ViT
+│   └── picksense.ipynb                  # original single notebook (superseded)
+├── src/
+│   └── create_mini_dataset.py           # standalone mini-dataset builder (CLI)
 └── README.md
 ```
 
-The `data` directories are created when the notebook is executed and should generally not be committed to Git.
+The dataset itself lives on Google Drive under `/content/drive/MyDrive/PickSense/data/` and is **not** committed to Git.
 
 ## Getting started
 
 ### Option 1: Google Colab
 
-The notebook currently uses paths beginning with:
+The notebooks store the dataset permanently on Google Drive under:
 
 ```text
-/content/picksense/
+/content/drive/MyDrive/PickSense/
 ```
 
-For that reason, Google Colab is the simplest environment for running the notebook in its current form.
+Google Colab is the simplest environment for running them.
 
 Clone the repository in Colab:
 
@@ -120,10 +121,16 @@ git clone https://github.com/thany-8/picksense.git
 cd picksense
 ```
 
-Open and run:
+Then, the first time (or whenever the data changes), run:
 
 ```text
-notebooks/picksense.ipynb
+notebooks/00_download_prepare_data.ipynb
+```
+
+For all normal work (training, evaluation), run:
+
+```text
+notebooks/01_picksense_main.ipynb
 ```
 
 ### Option 2: Local development
@@ -152,10 +159,10 @@ python3 -m pip install torch torchvision torchaudio matplotlib pillow torchinfo 
 Start Jupyter:
 
 ```bash
-jupyter notebook notebooks/picksense.ipynb
+jupyter notebook notebooks/01_picksense_main.ipynb
 ```
 
-When running locally, update the notebook's `/content/picksense/...` paths or replace them with paths relative to the repository root.
+The notebooks are written for Colab and use Google Drive paths (`/content/drive/MyDrive/PickSense/...`). To run locally, either build the dataset with `src/create_mini_dataset.py` and update the paths in the notebooks, or use the Colab option above.
 
 ## Planned work
 
