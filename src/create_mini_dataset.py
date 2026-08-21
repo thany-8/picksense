@@ -16,15 +16,15 @@ What it produces
 ----------------
     data/picksense_mini/
     ├── train/
-    │   ├── clear/                (75 images)
-    │   ├── partially_occluded/   (75 images)
-    │   └── heavily_occluded/     (75 images)
+    │   ├── clear/                (up to 1,000 images)
+    │   ├── partially_occluded/   (up to 1,000 images)
+    │   └── heavily_occluded/     (up to 1,000 images)
     └── test/
-        ├── clear/                (25 images)
-        ├── partially_occluded/   (25 images)
-        └── heavily_occluded/     (25 images)
+        ├── clear/                (up to 200 images)
+        ├── partially_occluded/   (up to 200 images)
+        └── heavily_occluded/     (up to 200 images)
 
-    => 225 train + 75 test = 300 images total.
+    => Up to 3,000 train + 600 test = 3,600 images total.
 
 Important guarantees
 --------------------
@@ -85,8 +85,8 @@ RANDOM_SEED = 42
 DEST_DIR = os.path.join("data", "picksense_mini")
 
 # How many images we want per class, for each split.
-TRAIN_PER_CLASS = 120
-TEST_PER_CLASS = 30
+TRAIN_PER_CLASS = 1000
+TEST_PER_CLASS = 200
 
 # Image file types we accept (compared in lower-case, so .JPG also works).
 IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".bmp")
@@ -362,8 +362,8 @@ def run_split_mode(split_dirs):
 def run_pooled_mode(occlusion_dir):
     """Fallback for sources that do NOT have train/ and test/ folders.
 
-    For each class we build one pool of images, randomly pick 100 of them, then
-    slice that into 75 train + 25 test. Slicing a without-replacement sample
+    For each class we build one pool of images, sample the requested total, then
+    split it into train and test portions. Sampling without replacement
     guarantees train and test never share an image.
     """
     total_needed = TRAIN_PER_CLASS + TEST_PER_CLASS  # 100 per class
@@ -392,8 +392,8 @@ def run_pooled_mode(occlusion_dir):
         files = pools[class_name]
         take = min(total_needed, len(files))
         chosen = random.sample(files, take)          # unique images, no repeats
-        train_selected = chosen[:TRAIN_PER_CLASS]    # first 75 -> train
-        test_selected = chosen[TRAIN_PER_CLASS:]     # remaining -> test
+        train_selected = chosen[:TRAIN_PER_CLASS]
+        test_selected = chosen[TRAIN_PER_CLASS:]
 
         copy_files(train_selected, occlusion_dir,
                    os.path.join(DEST_DIR, "train", class_name))

@@ -35,12 +35,12 @@ Everything is stored **permanently on Google Drive** (not under `/content/`, whi
 ```text
 /content/drive/MyDrive/PickSense/data/
 ├── raw/openloris/occlusion/     # OpenLORIS occlusion subset (downloaded once)
-└── picksense_mini/              # small 300-image development set
-    ├── train/{clear, partially_occluded, heavily_occluded}/   # 75 each
-    └── test/{clear, partially_occluded, heavily_occluded}/    # 25 each
+└── picksense_mini/              # balanced 3,600-image dataset
+    ├── train/{clear, partially_occluded, heavily_occluded}/   # 1,000 each
+    └── test/{clear, partially_occluded, heavily_occluded}/    # 200 each
 ```
 
-`picksense_mini` is a small, balanced **development** dataset (225 train + 75 test = 300 images) used to build and debug the CNN / ViT pipeline quickly. Its images are **copied** (not symlinked) so they persist on Drive, and sampling uses `random.seed(42)` for reproducibility. Train images are drawn from `occlusion/train` and test images from `occlusion/test`, so no image is shared between the two splits.
+`picksense_mini` is a balanced dataset (3,000 train + 600 test = 3,600 images). Its images are **copied** (not symlinked) so they persist on Drive, and sampling uses `random.seed(42)` for reproducibility. Train images are drawn from `occlusion/train` and test images from `occlusion/test`, so no image is shared between the two splits.
 
 ## Current workflow
 
@@ -93,7 +93,7 @@ The main notebook can train on a deterministic, class-balanced percentage of
 the prepared training set. Change these values in the DataLoader cell:
 
 ```python
-TRAIN_PERCENTAGE = 10  # Try 10, 25, 50, 75, then 100
+TRAIN_PERCENTAGE = 100 # Use the complete prepared training set
 BATCH_SIZE = 8         # Reduce to 4, 2, or 1 after a CUDA out-of-memory error
 DATA_SEED = 42
 ```
@@ -107,11 +107,9 @@ adds more batches per epoch, while `BATCH_SIZE` determines the GPU memory needed
 for one training step. Increase the percentage to use more data; decrease the
 batch size if the ViT does not fit in GPU memory.
 
-`picksense_mini` currently has only 75 training images per class. A 100% run is
-therefore still 225 training images. To create a larger prepared pool, increase
-`TRAIN_PER_CLASS` in `notebooks/00_download_prepare_data.ipynb` and rerun the
-dataset creation and verification cells. The percentage control will then
-sample from that larger pool without requiring another code change.
+`picksense_mini` currently has 1,000 training images per class. A 100% run uses
+all 3,000 training images. Lower percentages remain useful for quick experiments,
+but final comparisons should use 100% of the prepared pool.
 
 ## Repository structure
 
