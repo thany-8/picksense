@@ -85,7 +85,33 @@ manual_transforms = transforms.Compose([
 ])
 ```
 
-The current batch size is `32`.
+The progressive-training default batch size is `8`.
+
+## Progressive data training
+
+The main notebook can train on a deterministic, class-balanced percentage of
+the prepared training set. Change these values in the DataLoader cell:
+
+```python
+TRAIN_PERCENTAGE = 10  # Try 10, 25, 50, 75, then 100
+BATCH_SIZE = 8         # Reduce to 4, 2, or 1 after a CUDA out-of-memory error
+DATA_SEED = 42
+```
+
+Keep `DATA_SEED` fixed when comparing percentages. Each larger percentage then
+contains every image selected by the smaller percentages. Evaluation always
+uses 100% of the test set, so loss and accuracy remain comparable across runs.
+
+Dataset percentage and GPU memory solve different problems: a larger percentage
+adds more batches per epoch, while `BATCH_SIZE` determines the GPU memory needed
+for one training step. Increase the percentage to use more data; decrease the
+batch size if the ViT does not fit in GPU memory.
+
+`picksense_mini` currently has only 75 training images per class. A 100% run is
+therefore still 225 training images. To create a larger prepared pool, increase
+`TRAIN_PER_CLASS` in `notebooks/00_download_prepare_data.ipynb` and rerun the
+dataset creation and verification cells. The percentage control will then
+sample from that larger pool without requiring another code change.
 
 ## Repository structure
 
@@ -96,7 +122,8 @@ picksense/
 │   ├── 01_picksense_main.ipynb          # normal work: checks data, then trains the ViT
 │   └── picksense.ipynb                  # original single notebook (superseded)
 ├── src/
-│   └── create_mini_dataset.py           # standalone mini-dataset builder (CLI)
+│   ├── create_mini_dataset.py           # standalone mini-dataset builder (CLI)
+│   └── data_setup.py                    # balanced percentage DataLoaders
 └── README.md
 ```
 

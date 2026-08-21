@@ -85,8 +85,8 @@ RANDOM_SEED = 42
 DEST_DIR = os.path.join("data", "picksense_mini")
 
 # How many images we want per class, for each split.
-TRAIN_PER_CLASS = 75
-TEST_PER_CLASS = 25
+TRAIN_PER_CLASS = 120
+TEST_PER_CLASS = 30
 
 # Image file types we accept (compared in lower-case, so .JPG also works).
 IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".bmp")
