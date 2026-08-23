@@ -63,6 +63,15 @@ Dataset preparation and modelling are split into two notebooks so the dataset is
 5. Replicates the Vision Transformer (ViT) architecture from the Learn PyTorch course.
 6. Trains and evaluates the model.
 
+## Web application
+
+The `app/` directory contains a React + Vite frontend and a FastAPI + PyTorch
+inference backend. It loads the trained pretrained-ViT checkpoint once at API
+startup and returns all three softmax probabilities for an uploaded image.
+
+See [app/README.md](app/README.md) for checkpoint placement and local startup
+commands. The web app performs inference only; it never retrains the model.
+
 ## Model approach
 
 The project follows the ViT paper-replication approach from Learn PyTorch.

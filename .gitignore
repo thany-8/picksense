@@ -20,6 +20,7 @@
 # Reports (keep the folder, ignore heavy generated outputs)
 /reports/figures/*
 !/reports/figures/.gitkeep
+~$*
 
 # --- Python -----------------------------------------------------------------
 __pycache__/
@@ -28,6 +29,10 @@ __pycache__/
 .venv/
 venv/
 .env
+
+# --- React / Vite -----------------------------------------------------------
+node_modules/
+dist/
 
 # --- Jupyter ----------------------------------------------------------------
 .ipynb_checkpoints/
