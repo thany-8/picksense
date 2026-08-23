@@ -42,10 +42,10 @@ From the repository root:
 ```bash
 source .venv/bin/activate
 python -m pip install -r app/backend/requirements.txt
-uvicorn app.backend.main:app --reload --port 8000
+uvicorn app.backend.main:app --reload --port 8001
 ```
 
-Check the API at [http://localhost:8000/docs](http://localhost:8000/docs).
+Check the API at [http://127.0.0.1:8001/docs](http://127.0.0.1:8001/docs).
 The model is reconstructed and loaded once when FastAPI starts.
 
 ## 3. Start the frontend

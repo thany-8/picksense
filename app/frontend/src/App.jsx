@@ -11,9 +11,10 @@ import {
   X,
 } from 'lucide-react'
 
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8001'
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/bmp']
 const MAX_FILE_SIZE = 10 * 1024 * 1024
+const PREDICTION_TIMEOUT_MS = 60_000
 
 const CLASS_DETAILS = [
   { key: 'clear', label: 'Clear', color: '#21a179' },
@@ -68,6 +69,25 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState('')
+  const [apiStatus, setApiStatus] = useState('checking')
+
+  useEffect(() => {
+    const controller = new AbortController()
+    const timeoutId = window.setTimeout(() => controller.abort(), 4_000)
+
+    fetch(`${API_URL}/health`, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error('API health check failed')
+        setApiStatus('online')
+      })
+      .catch(() => setApiStatus('offline'))
+      .finally(() => window.clearTimeout(timeoutId))
+
+    return () => {
+      controller.abort()
+      window.clearTimeout(timeoutId)
+    }
+  }, [])
 
   useEffect(() => {
     if (!file) {
@@ -119,21 +139,35 @@ function App() {
 
     const formData = new FormData()
     formData.append('file', file)
+    const controller = new AbortController()
+    const timeoutId = window.setTimeout(() => controller.abort(), PREDICTION_TIMEOUT_MS)
 
     try {
       const response = await fetch(`${API_URL}/predict`, {
         method: 'POST',
         body: formData,
+        signal: controller.signal,
       })
+      const contentType = response.headers.get('content-type') ?? ''
+      if (!contentType.includes('application/json')) {
+        throw new Error('The API returned an unexpected response. Check the backend URL.')
+      }
+
       const payload = await response.json()
       if (!response.ok) {
         throw new Error(payload.detail ?? 'Prediction failed. Please try again.')
       }
       setResult(payload)
     } catch (requestError) {
-      const fallback = 'Could not reach the PickSense API. Check that the backend is running.'
-      setError(requestError instanceof TypeError ? fallback : requestError.message)
+      const fallback = 'Could not reach the PickSense API at port 8001. Start the backend and try again.'
+      if (requestError.name === 'AbortError') {
+        setError('Prediction timed out after 60 seconds. Check the backend and try again.')
+      } else {
+        setError(requestError instanceof TypeError ? fallback : requestError.message)
+      }
+      setApiStatus('offline')
     } finally {
+      window.clearTimeout(timeoutId)
       setIsLoading(false)
     }
   }
@@ -146,8 +180,8 @@ function App() {
           <span>PickSense</span>
         </a>
         <div className="model-status">
-          <span className="status-dot" />
-          ViT-B/16 · 3 classes
+          <span className={`status-dot ${apiStatus}`} />
+          ViT-B/16 · API {apiStatus}
         </div>
       </header>
 
