@@ -2,7 +2,19 @@
 
 PickSense is a computer vision learning project that explores whether a Vision Transformer (ViT) can classify an object's **pickability from visual occlusion**.
 
+## Visual overview (start here)
 
+New to the project? Open [`docs/picksense_system_overview.excalidraw`](docs/picksense_system_overview.excalidraw)
+for a one-page diagram of how everything fits together. It shows the two halves
+of the system side by side:
+
+1. **Training** — download data, build a balanced dataset, and train the ViT
+   once to produce the `pretrained_vit_picksense.pth` model file.
+2. **Inference** — the web app loads that model file and predicts the occlusion
+   level of an uploaded image (it never retrains).
+
+To view or edit it, drag the file onto [excalidraw.com](https://excalidraw.com)
+(or use the *Excalidraw* VS Code extension).
 
 ## Project objective
 
