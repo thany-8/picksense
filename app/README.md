@@ -63,6 +63,22 @@ Open [http://localhost:5173](http://localhost:5173).
 For a backend at another URL, copy `.env.example` to `.env` and update
 `VITE_API_URL`.
 
+## Single-origin option (one server)
+
+For a quick end-to-end check without running a second dev server, build the
+frontend once and let the backend serve it from the same origin:
+
+```bash
+cd app/frontend
+npm run build
+```
+
+Then start the backend and open [http://127.0.0.1:8001](http://127.0.0.1:8001).
+When `app/frontend/dist/` exists, the API serves the built UI at `/` (and its
+assets under `/assets`), so uploads and predictions work with no CORS setup.
+Rebuild after changing frontend source, or use the Vite dev server above when
+you want hot reloading.
+
 ## Inference contract
 
 The backend deliberately matches the notebook:

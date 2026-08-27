@@ -7,12 +7,15 @@ from typing import Annotated, AsyncIterator
 
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from .model_utils import InvalidImageError, PickSensePredictor
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MODEL_PATH = PROJECT_ROOT / "models" / "pretrained_vit_picksense.pth"
+FRONTEND_DIST = PROJECT_ROOT / "app" / "frontend" / "dist"
 MODEL_PATH = Path(os.getenv("PICKSENSE_MODEL_PATH", DEFAULT_MODEL_PATH)).expanduser()
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 ALLOWED_CONTENT_TYPES = {"image/jpeg", "image/png", "image/webp", "image/bmp"}
@@ -69,3 +72,19 @@ async def predict(
 		return predictor.predict(image_bytes)
 	except InvalidImageError as error:
 		raise HTTPException(status_code=400, detail=str(error)) from error
+
+
+# Serve the built React frontend from the same origin when it exists, so the
+# whole app runs from one root (http://127.0.0.1:8001) with no CORS concerns.
+# The documented two-server dev workflow (Vite on 5173) still works unchanged.
+if FRONTEND_DIST.is_dir():
+	app.mount(
+		"/assets",
+		StaticFiles(directory=FRONTEND_DIST / "assets"),
+		name="assets",
+	)
+
+	@app.get("/")
+	async def serve_frontend() -> FileResponse:
+		"""Return the single-page app entry point."""
+		return FileResponse(FRONTEND_DIST / "index.html")
