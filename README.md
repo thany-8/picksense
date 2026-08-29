@@ -106,8 +106,6 @@ manual_transforms = transforms.Compose([
 ])
 ```
 
-The progressive-training default batch size is `8`.
-
 ## Progressive data training
 
 The main notebook can train on a deterministic, class-balanced percentage of
@@ -125,8 +123,7 @@ uses 100% of the test set, so loss and accuracy remain comparable across runs.
 
 Dataset percentage and GPU memory solve different problems: a larger percentage
 adds more batches per epoch, while `BATCH_SIZE` determines the GPU memory needed
-for one training step. Increase the percentage to use more data; decrease the
-batch size if the ViT does not fit in GPU memory.
+for one training step.
 
 `picksense_mini` currently has 1,000 training images per class. A 100% run uses
 all 3,000 training images. Lower percentages remain useful for quick experiments,
@@ -138,8 +135,7 @@ but final comparisons should use 100% of the prepared pool.
 picksense/
 ├── notebooks/
 │   ├── 00_download_prepare_data.ipynb   # run once: download + build picksense_mini on Drive
-│   ├── 01_picksense_main.ipynb          # normal work: checks data, then trains the ViT
-│   └── picksense.ipynb                  # original single notebook (superseded)
+│   └── 01_picksense_main.ipynb          # normal work: checks data, then trains the ViT
 ├── src/
 │   ├── create_mini_dataset.py           # standalone mini-dataset builder (CLI)
 │   └── data_setup.py                    # balanced percentage DataLoaders
@@ -152,13 +148,7 @@ The dataset itself lives on Google Drive under `/content/drive/MyDrive/PickSense
 
 ### Option 1: Google Colab
 
-The notebooks store the dataset permanently on Google Drive under:
-
-```text
-/content/drive/MyDrive/PickSense/
-```
-
-Google Colab is the simplest environment for running them.
+Google Colab is the simplest environment for running the notebooks.
 
 Clone the repository in Colab:
 
@@ -228,7 +218,5 @@ The notebooks are written for Colab and use Google Drive paths (`/content/drive/
 This project is currently under development and is intended for learning and experimentation.
 
 The dataset preparation and `DataLoader` pipeline are implemented. The ViT architecture, training process, and final evaluation are still being developed.
-
-
 
 The OpenLORIS-Object dataset remains subject to its original license and terms of use.
