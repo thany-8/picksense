@@ -216,6 +216,22 @@ h1 { margin: 0; font-size: clamp(34px, 5vw, 56px); line-height: 1.04; }
 .scanner::after { content: ''; position: absolute; left: 8px; right: 8px; height: 2px; background: var(--orange); animation: scan 1.25s ease-in-out infinite alternate; }
 
 .result-content { padding: 4px 8px 0; }
+.confidence-warning {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 2px;
+  padding: 12px 14px;
+  border: 1px solid rgba(217, 155, 53, 0.45);
+  background: rgba(217, 155, 53, 0.1);
+  border-radius: 6px;
+  color: #6f5312;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.confidence-warning svg { flex-shrink: 0; margin-top: 1px; color: #d79b35; }
+.confidence-warning p { margin: 0; }
+.confidence-warning strong { color: #5c440f; }
 .prediction-summary { padding: 22px 0 26px; border-bottom: 1px solid var(--line); position: relative; }
 .prediction-summary span { color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; }
 .prediction-summary h3 { margin: 9px 80px 0 0; font-size: clamp(25px, 3.2vw, 36px); line-height: 1.15; }

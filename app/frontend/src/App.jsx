@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   AlertCircle,
+  AlertTriangle,
   ArrowRight,
   CheckCircle2,
   ImagePlus,
@@ -28,6 +29,19 @@ function displayLabel(className) {
 
 function formatPercent(probability = 0) {
   return `${(probability * 100).toFixed(1)}%`
+}
+
+// Flag predictions that look like guesses (e.g. out-of-distribution uploads):
+// a low top probability or a small gap between the top two classes.
+const LOW_CONFIDENCE_PROB = 0.55
+const LOW_CONFIDENCE_MARGIN = 0.15
+
+function isUncertain(result) {
+  if (!result?.probabilities) return false
+  const [top = 0, second = 0] = Object.values(result.probabilities).sort(
+    (a, b) => b - a,
+  )
+  return top < LOW_CONFIDENCE_PROB || top - second < LOW_CONFIDENCE_MARGIN
 }
 
 function ProbabilityRows({ probabilities }) {
@@ -279,6 +293,16 @@ function App() {
               </div>
             ) : result ? (
               <div className="result-content">
+                {isUncertain(result) && (
+                  <div className="confidence-warning">
+                    <AlertTriangle size={18} />
+                    <p>
+                      <strong>Low confidence.</strong> This image may be outside
+                      the model’s training data (OpenLORIS lab photos), so the
+                      prediction may be unreliable.
+                    </p>
+                  </div>
+                )}
                 <div className="prediction-summary">
                   <span>Prediction</span>
                   <h3>{displayLabel(result.prediction)}</h3>
