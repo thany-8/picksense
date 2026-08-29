@@ -28,7 +28,6 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
-import torch  # noqa: E402
 from torchvision import datasets  # noqa: E402
 
 from app.backend.model_utils import CLASS_NAMES, PickSensePredictor  # noqa: E402

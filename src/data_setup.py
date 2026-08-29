@@ -6,7 +6,41 @@ from typing import Callable
 
 import torch
 from torch.utils.data import DataLoader, Subset
-from torchvision import datasets
+from torchvision import datasets, transforms
+from torchvision.models import ViT_B_16_Weights
+
+
+def build_transforms(augment: bool = True) -> tuple[Callable, Callable]:
+	"""Return ``(train_transform, eval_transform)`` for the pretrained ViT.
+
+	``eval_transform`` is the backbone's own preset (resize 256 -> center-crop 224
+	-> ImageNet normalize) and MUST stay identical to what the backend uses at
+	inference. When ``augment`` is True the training transform adds real-world
+	robustness (object scale, flip, colour/lighting, viewpoint, mild blur) while
+	ending with the *same* normalization, so nothing about the model input contract
+	changes. Use ``eval_transform`` for validation/test so metrics stay comparable.
+	"""
+	weights = ViT_B_16_Weights.DEFAULT
+	eval_transform = weights.transforms()
+	mean, std = eval_transform.mean, eval_transform.std
+	size = eval_transform.crop_size[0]
+
+	if not augment:
+		return eval_transform, eval_transform
+
+	train_transform = transforms.Compose(
+		[
+			transforms.RandomResizedCrop(size, scale=(0.7, 1.0), ratio=(0.9, 1.1)),
+			transforms.RandomHorizontalFlip(0.5),
+			transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=0.05),
+			transforms.RandomRotation(15),
+			transforms.RandomPerspective(distortion_scale=0.2, p=0.3),
+			transforms.RandomApply([transforms.GaussianBlur(3, sigma=(0.1, 1.5))], p=0.2),
+			transforms.ToTensor(),
+			transforms.Normalize(mean, std),
+		]
+	)
+	return train_transform, eval_transform
 
 
 def _stratified_subset_indices(
@@ -37,18 +71,23 @@ def create_percentage_dataloaders(
 	train_percentage: float = 100,
 	seed: int = 42,
 	num_workers: int = 0,
+	train_transform: Callable | None = None,
 ) -> tuple[DataLoader, DataLoader, list[str]]:
 	"""Create loaders using a balanced percentage of training data and all test data.
 
 	Increasing ``train_percentage`` with the same seed preserves previously selected
 	samples, which makes progressive experiments directly comparable.
+
+	``transform`` is applied to the test split (and to train when no separate
+	``train_transform`` is given). Pass ``train_transform`` to augment the training
+	split only, keeping the evaluation transform deterministic.
 	"""
 	if not 0 < train_percentage <= 100:
 		raise ValueError("train_percentage must be greater than 0 and at most 100")
 	if batch_size < 1:
 		raise ValueError("batch_size must be at least 1")
 
-	full_train_dataset = datasets.ImageFolder(train_dir, transform=transform)
+	full_train_dataset = datasets.ImageFolder(train_dir, transform=train_transform or transform)
 	test_dataset = datasets.ImageFolder(test_dir, transform=transform)
 
 	selected_indices = _stratified_subset_indices(
