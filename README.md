@@ -2,6 +2,10 @@
 
 PickSense is a computer vision learning project that explores whether a Vision Transformer (ViT) can classify an object's **pickability from visual occlusion**.
 
+## Live demo
+
+The app is deployed on Hugging Face Spaces: **[Thany/PickSense](https://huggingface.co/spaces/Thany/PickSense)**
+
 ## Visual overview (start here)
 
 New to the project? Open [`docs/picksense_system_overview.excalidraw`](docs/picksense_system_overview.excalidraw)
@@ -97,14 +101,9 @@ A ViT processes an image by:
 5. Processing the sequence with Transformer encoder blocks.
 6. Using the class token to predict one of the three output classes.
 
-The initial preprocessing pipeline is:
-
-```python
-manual_transforms = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-])
-```
+Inference uses the pretrained backbone's own preprocessing
+(`ViT_B_16_Weights.DEFAULT.transforms()`): resize to 256, center-crop to 224,
+then normalize with ImageNet statistics.
 
 ## Progressive data training
 
@@ -133,12 +132,14 @@ but final comparisons should use 100% of the prepared pool.
 
 ```text
 picksense/
-├── notebooks/
-│   ├── 00_download_prepare_data.ipynb   # run once: download + build picksense_mini on Drive
-│   └── 01_picksense_main.ipynb          # normal work: checks data, then trains the ViT
-├── src/
-│   ├── create_mini_dataset.py           # standalone mini-dataset builder (CLI)
-│   └── data_setup.py                    # balanced percentage DataLoaders
+├── app/                    # web app (inference)
+│   ├── backend/            # FastAPI API + model loading
+│   └── frontend/           # React + Vite UI
+├── notebooks/              # data preparation + training
+├── src/                    # training / dataset utilities
+├── scripts/                # offline evaluation / verification
+├── models/                 # trained checkpoint (not committed to Git)
+├── docs/                   # system overview diagram
 └── README.md
 ```
 
@@ -200,23 +201,13 @@ jupyter notebook notebooks/01_picksense_main.ipynb
 
 The notebooks are written for Colab and use Google Drive paths (`/content/drive/MyDrive/PickSense/...`). To run locally, either build the dataset with `src/create_mini_dataset.py` and update the paths in the notebooks, or use the Colab option above.
 
-## Planned work
+## Future work
 
-- Complete the ViT architecture implementation.
-- Train the model on the three occlusion classes.
-- Track training and testing loss and accuracy.
-- Add a confusion matrix and per-class metrics.
-- Evaluate predictions on unseen images.
-- Compare a custom ViT with a pretrained ViT model.
-- Add data augmentation and normalization.
-- Save trained model weights.
-- Move reusable training and data-processing code into Python modules.
 - Investigate labels based on real robotic grasp success rather than occlusion alone.
+- Improve real-world (phone-photo) generalization.
 
 ## Project status
 
-This project is currently under development and is intended for learning and experimentation.
-
-The dataset preparation and `DataLoader` pipeline are implemented. The ViT architecture, training process, and final evaluation are still being developed.
+The ViT is trained, the inference web app is implemented, and it is deployed on Hugging Face Spaces (see [Live demo](#live-demo)). The dataset preparation, training, and evaluation pipeline are all in place.
 
 The OpenLORIS-Object dataset remains subject to its original license and terms of use.
