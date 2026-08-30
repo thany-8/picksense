@@ -1,7 +1,7 @@
 {
   "type": "excalidraw",
   "version": 2,
-  "source": "https://excalidraw.com",
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
   "elements": [
     {
       "id": "el1",
@@ -22,22 +22,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 1373158607,
-      "version": 1,
-      "versionNonce": 239081664,
+      "version": 2,
+      "versionNonce": 634751280,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "PickSense \u2014 how the system works",
+      "text": "PickSense — how the system works",
       "fontSize": 30,
       "fontFamily": 1,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "PickSense \u2014 how the system works",
+      "originalText": "PickSense — how the system works",
       "lineHeight": 1.25,
-      "baseline": 24
+      "baseline": 24,
+      "index": "a0",
+      "autoResize": true
     },
     {
       "id": "el2",
@@ -58,11 +60,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 53710185,
-      "version": 1,
-      "versionNonce": 1592467582,
+      "version": 2,
+      "versionNonce": 1929830864,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "A Vision Transformer (ViT) looks at an object image and predicts how occluded (visually blocked) it is.",
@@ -73,13 +75,15 @@
       "containerId": null,
       "originalText": "A Vision Transformer (ViT) looks at an object image and predicts how occluded (visually blocked) it is.",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "a1",
+      "autoResize": true
     },
     {
       "id": "el3",
       "type": "text",
-      "x": 90,
-      "y": 118,
+      "x": 118.95703125,
+      "y": 106.2578125,
       "width": 1200,
       "height": 26,
       "angle": 0,
@@ -94,22 +98,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 590620972,
-      "version": 1,
-      "versionNonce": 525901257,
+      "version": 125,
+      "versionNonce": 2061629744,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051915791,
       "link": null,
       "locked": false,
-      "text": "1)  TRAINING  \u2014  build the model  (run once, in Google Colab)",
+      "text": "1)  TRAINING  —  build the model  (run once, in Google Colab)",
       "fontSize": 20,
       "fontFamily": 1,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "1)  TRAINING  \u2014  build the model  (run once, in Google Colab)",
+      "originalText": "1)  TRAINING  —  build the model  (run once, in Google Colab)",
       "lineHeight": 1.25,
-      "baseline": 16
+      "baseline": 16,
+      "index": "a2",
+      "autoResize": true
     },
     {
       "id": "el4",
@@ -132,13 +138,14 @@
         "type": 3
       },
       "seed": 479341424,
-      "version": 1,
-      "versionNonce": 299655413,
+      "version": 2,
+      "versionNonce": 1768564688,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "a3"
     },
     {
       "id": "box5",
@@ -161,8 +168,8 @@
         "type": 3
       },
       "seed": 1581559893,
-      "version": 1,
-      "versionNonce": 220106708,
+      "version": 2,
+      "versionNonce": 1468595504,
       "isDeleted": false,
       "boundElements": [
         {
@@ -174,9 +181,10 @@
           "id": "arr23"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "a4"
     },
     {
       "id": "txt6",
@@ -197,11 +205,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 1453201079,
-      "version": 1,
-      "versionNonce": 1590571866,
+      "version": 2,
+      "versionNonce": 2138353104,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "Kaggle\nOpenLORIS-Object\ndataset (9 tasks)",
@@ -212,7 +220,9 @@
       "containerId": "box5",
       "originalText": "Kaggle\nOpenLORIS-Object\ndataset (9 tasks)",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "a5",
+      "autoResize": true
     },
     {
       "id": "box8",
@@ -235,8 +245,8 @@
         "type": 3
       },
       "seed": 1915941033,
-      "version": 1,
-      "versionNonce": 1171165723,
+      "version": 2,
+      "versionNonce": 1641142064,
       "isDeleted": false,
       "boundElements": [
         {
@@ -252,9 +262,10 @@
           "id": "arr24"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "a6"
     },
     {
       "id": "txt9",
@@ -275,22 +286,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 186699714,
-      "version": 1,
-      "versionNonce": 1268073013,
+      "version": 2,
+      "versionNonce": 1044280272,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "00_download_prepare\n_data.ipynb\nDownload \u2192 Google Drive",
+      "text": "00_download_prepare\n_data.ipynb\nDownload → Google Drive",
       "fontSize": 15,
       "fontFamily": 2,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "box8",
-      "originalText": "00_download_prepare\n_data.ipynb\nDownload \u2192 Google Drive",
+      "originalText": "00_download_prepare\n_data.ipynb\nDownload → Google Drive",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "a7",
+      "autoResize": true
     },
     {
       "id": "box11",
@@ -313,8 +326,8 @@
         "type": 3
       },
       "seed": 906070221,
-      "version": 1,
-      "versionNonce": 68252794,
+      "version": 2,
+      "versionNonce": 569340208,
       "isDeleted": false,
       "boundElements": [
         {
@@ -330,9 +343,10 @@
           "id": "arr25"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "a8"
     },
     {
       "id": "txt12",
@@ -353,22 +367,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 63989048,
-      "version": 1,
-      "versionNonce": 201209006,
+      "version": 2,
+      "versionNonce": 1272936912,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "create_mini_dataset.py\n9 tasks \u2192 3 classes\nbalanced 3,600 images",
+      "text": "create_mini_dataset.py\n9 tasks → 3 classes\nbalanced 3,600 images",
       "fontSize": 15,
       "fontFamily": 2,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "box11",
-      "originalText": "create_mini_dataset.py\n9 tasks \u2192 3 classes\nbalanced 3,600 images",
+      "originalText": "create_mini_dataset.py\n9 tasks → 3 classes\nbalanced 3,600 images",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "a9",
+      "autoResize": true
     },
     {
       "id": "box14",
@@ -391,8 +407,8 @@
         "type": 3
       },
       "seed": 469521478,
-      "version": 1,
-      "versionNonce": 499635469,
+      "version": 2,
+      "versionNonce": 2135542576,
       "isDeleted": false,
       "boundElements": [
         {
@@ -408,9 +424,10 @@
           "id": "arr26"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aA"
     },
     {
       "id": "txt15",
@@ -431,22 +448,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 1085242217,
-      "version": 1,
-      "versionNonce": 1292825379,
+      "version": 2,
+      "versionNonce": 1265614800,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "data_setup.py\nDataLoaders\nresize to 224\u00d7224",
+      "text": "data_setup.py\nDataLoaders\nresize to 224×224",
       "fontSize": 15,
       "fontFamily": 2,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "box14",
-      "originalText": "data_setup.py\nDataLoaders\nresize to 224\u00d7224",
+      "originalText": "data_setup.py\nDataLoaders\nresize to 224×224",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aB",
+      "autoResize": true
     },
     {
       "id": "box17",
@@ -469,8 +488,8 @@
         "type": 3
       },
       "seed": 56985562,
-      "version": 1,
-      "versionNonce": 1205264596,
+      "version": 2,
+      "versionNonce": 877192496,
       "isDeleted": false,
       "boundElements": [
         {
@@ -486,9 +505,10 @@
           "id": "arr27"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aC"
     },
     {
       "id": "txt18",
@@ -509,11 +529,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 427000597,
-      "version": 1,
-      "versionNonce": 1537640409,
+      "version": 2,
+      "versionNonce": 1023886800,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "01_picksense_main.ipynb\ntrain + evaluate\nViT-B/16",
@@ -524,7 +544,9 @@
       "containerId": "box17",
       "originalText": "01_picksense_main.ipynb\ntrain + evaluate\nViT-B/16",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aD",
+      "autoResize": true
     },
     {
       "id": "box20",
@@ -547,8 +569,8 @@
         "type": 3
       },
       "seed": 1395616197,
-      "version": 1,
-      "versionNonce": 1506083911,
+      "version": 2,
+      "versionNonce": 1851047728,
       "isDeleted": false,
       "boundElements": [
         {
@@ -564,9 +586,10 @@
           "id": "arr53"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aE"
     },
     {
       "id": "txt21",
@@ -587,11 +610,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 1170252924,
-      "version": 1,
-      "versionNonce": 900911955,
+      "version": 2,
+      "versionNonce": 1572735952,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "pretrained_vit\n_picksense.pth\ntrained model (~327 MB)",
@@ -602,15 +625,17 @@
       "containerId": "box20",
       "originalText": "pretrained_vit\n_picksense.pth\ntrained model (~327 MB)",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aF",
+      "autoResize": true
     },
     {
       "id": "arr23",
       "type": "arrow",
       "x": 310,
-      "y": 240.0,
+      "y": 240,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -625,11 +650,11 @@
         "type": 2
       },
       "seed": 473392625,
-      "version": 1,
-      "versionNonce": 964669078,
+      "version": 2,
+      "versionNonce": 1842698544,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -639,7 +664,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -654,15 +679,16 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "aG"
     },
     {
       "id": "arr24",
       "type": "arrow",
       "x": 560,
-      "y": 240.0,
+      "y": 240,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -677,11 +703,11 @@
         "type": 2
       },
       "seed": 1265438423,
-      "version": 1,
-      "versionNonce": 597409993,
+      "version": 2,
+      "versionNonce": 128717264,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -691,7 +717,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -706,15 +732,16 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "aH"
     },
     {
       "id": "arr25",
       "type": "arrow",
       "x": 810,
-      "y": 240.0,
+      "y": 240,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -729,11 +756,11 @@
         "type": 2
       },
       "seed": 1738238662,
-      "version": 1,
-      "versionNonce": 1866808230,
+      "version": 2,
+      "versionNonce": 640856880,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -743,7 +770,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -758,15 +785,16 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "aI"
     },
     {
       "id": "arr26",
       "type": "arrow",
       "x": 1060,
-      "y": 240.0,
+      "y": 240,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -781,11 +809,11 @@
         "type": 2
       },
       "seed": 13955984,
-      "version": 1,
-      "versionNonce": 1629526406,
+      "version": 2,
+      "versionNonce": 300505040,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -795,7 +823,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -810,15 +838,16 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "aJ"
     },
     {
       "id": "arr27",
       "type": "arrow",
       "x": 1310,
-      "y": 240.0,
+      "y": 240,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
@@ -833,11 +862,11 @@
         "type": 2
       },
       "seed": 1730483679,
-      "version": 1,
-      "versionNonce": 342865763,
+      "version": 2,
+      "versionNonce": 1574227248,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -847,7 +876,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -862,7 +891,8 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "aK"
     },
     {
       "id": "el28",
@@ -883,22 +913,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 1499242942,
-      "version": 1,
-      "versionNonce": 907557513,
+      "version": 2,
+      "versionNonce": 814603728,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "2)  INFERENCE  \u2014  use the model  (the web app, prediction only)",
+      "text": "2)  INFERENCE  —  use the model  (the web app, prediction only)",
       "fontSize": 20,
       "fontFamily": 1,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "2)  INFERENCE  \u2014  use the model  (the web app, prediction only)",
+      "originalText": "2)  INFERENCE  —  use the model  (the web app, prediction only)",
       "lineHeight": 1.25,
-      "baseline": 16
+      "baseline": 16,
+      "index": "aL",
+      "autoResize": true
     },
     {
       "id": "el29",
@@ -921,13 +953,14 @@
         "type": 3
       },
       "seed": 730682428,
-      "version": 1,
-      "versionNonce": 596724165,
+      "version": 2,
+      "versionNonce": 1310959408,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aM"
     },
     {
       "id": "box30",
@@ -950,8 +983,8 @@
         "type": 3
       },
       "seed": 333889689,
-      "version": 1,
-      "versionNonce": 462382782,
+      "version": 2,
+      "versionNonce": 1420927952,
       "isDeleted": false,
       "boundElements": [
         {
@@ -963,9 +996,10 @@
           "id": "arr48"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aN"
     },
     {
       "id": "txt31",
@@ -986,11 +1020,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 1639591160,
-      "version": 1,
-      "versionNonce": 722831293,
+      "version": 2,
+      "versionNonce": 1132937520,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "User\nuploads an object image\n(browser)",
@@ -1001,7 +1035,9 @@
       "containerId": "box30",
       "originalText": "User\nuploads an object image\n(browser)",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aO",
+      "autoResize": true
     },
     {
       "id": "box33",
@@ -1024,8 +1060,8 @@
         "type": 3
       },
       "seed": 219494903,
-      "version": 1,
-      "versionNonce": 199170185,
+      "version": 2,
+      "versionNonce": 208447952,
       "isDeleted": false,
       "boundElements": [
         {
@@ -1041,9 +1077,10 @@
           "id": "arr49"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aP"
     },
     {
       "id": "txt34",
@@ -1064,11 +1101,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 815887679,
-      "version": 1,
-      "versionNonce": 207696844,
+      "version": 2,
+      "versionNonce": 1030200112,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "React frontend\nApp.jsx\npreview + POST /predict",
@@ -1079,7 +1116,9 @@
       "containerId": "box33",
       "originalText": "React frontend\nApp.jsx\npreview + POST /predict",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aQ",
+      "autoResize": true
     },
     {
       "id": "box36",
@@ -1102,8 +1141,8 @@
         "type": 3
       },
       "seed": 770902344,
-      "version": 1,
-      "versionNonce": 1819980298,
+      "version": 2,
+      "versionNonce": 1658253264,
       "isDeleted": false,
       "boundElements": [
         {
@@ -1119,9 +1158,10 @@
           "id": "arr50"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aR"
     },
     {
       "id": "txt37",
@@ -1142,11 +1182,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 738639289,
-      "version": 1,
-      "versionNonce": 1296491778,
+      "version": 2,
+      "versionNonce": 237810992,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "FastAPI backend\nmain.py\nvalidate + /predict route",
@@ -1157,7 +1197,9 @@
       "containerId": "box36",
       "originalText": "FastAPI backend\nmain.py\nvalidate + /predict route",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aS",
+      "autoResize": true
     },
     {
       "id": "box39",
@@ -1180,8 +1222,8 @@
         "type": 3
       },
       "seed": 568054228,
-      "version": 1,
-      "versionNonce": 1733294784,
+      "version": 2,
+      "versionNonce": 1074296272,
       "isDeleted": false,
       "boundElements": [
         {
@@ -1201,9 +1243,10 @@
           "id": "arr53"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aT"
     },
     {
       "id": "txt40",
@@ -1224,22 +1267,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 93309106,
-      "version": 1,
-      "versionNonce": 1567087081,
+      "version": 2,
+      "versionNonce": 2067697456,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "PickSensePredictor\nmodel_utils.py\npreprocess \u2192 ViT \u2192 softmax",
+      "text": "PickSensePredictor\nmodel_utils.py\npreprocess → ViT → softmax",
       "fontSize": 15,
       "fontFamily": 2,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "box39",
-      "originalText": "PickSensePredictor\nmodel_utils.py\npreprocess \u2192 ViT \u2192 softmax",
+      "originalText": "PickSensePredictor\nmodel_utils.py\npreprocess → ViT → softmax",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aU",
+      "autoResize": true
     },
     {
       "id": "box42",
@@ -1262,8 +1307,8 @@
         "type": 3
       },
       "seed": 986607412,
-      "version": 1,
-      "versionNonce": 1151541059,
+      "version": 2,
+      "versionNonce": 1226390480,
       "isDeleted": false,
       "boundElements": [
         {
@@ -1279,9 +1324,10 @@
           "id": "arr52"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aV"
     },
     {
       "id": "txt43",
@@ -1302,11 +1348,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 268062141,
-      "version": 1,
-      "versionNonce": 1980614225,
+      "version": 2,
+      "versionNonce": 1560619312,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "3 probabilities\nclear / partially /\nheavily occluded",
@@ -1317,7 +1363,9 @@
       "containerId": "box42",
       "originalText": "3 probabilities\nclear / partially /\nheavily occluded",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aW",
+      "autoResize": true
     },
     {
       "id": "box45",
@@ -1340,8 +1388,8 @@
         "type": 3
       },
       "seed": 812896394,
-      "version": 1,
-      "versionNonce": 169222133,
+      "version": 2,
+      "versionNonce": 1075921360,
       "isDeleted": false,
       "boundElements": [
         {
@@ -1353,9 +1401,10 @@
           "id": "arr52"
         }
       ],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "aX"
     },
     {
       "id": "txt46",
@@ -1376,11 +1425,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 1185498233,
-      "version": 1,
-      "versionNonce": 629595553,
+      "version": 2,
+      "versionNonce": 1055425328,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "Frontend shows\nprobability bars\n+ top prediction",
@@ -1391,15 +1440,17 @@
       "containerId": "box45",
       "originalText": "Frontend shows\nprobability bars\n+ top prediction",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aY",
+      "autoResize": true
     },
     {
       "id": "arr48",
       "type": "arrow",
       "x": 310,
-      "y": 482.0,
+      "y": 482,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -1414,11 +1465,11 @@
         "type": 2
       },
       "seed": 1781132954,
-      "version": 1,
-      "versionNonce": 1349993688,
+      "version": 2,
+      "versionNonce": 1681426384,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -1428,7 +1479,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -1443,15 +1494,16 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "aZ"
     },
     {
       "id": "arr49",
       "type": "arrow",
       "x": 560,
-      "y": 482.0,
+      "y": 482,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -1466,11 +1518,11 @@
         "type": 2
       },
       "seed": 1328261054,
-      "version": 1,
-      "versionNonce": 1901493144,
+      "version": 2,
+      "versionNonce": 2135989552,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -1480,7 +1532,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -1495,15 +1547,16 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "aa"
     },
     {
       "id": "arr50",
       "type": "arrow",
       "x": 810,
-      "y": 482.0,
+      "y": 482,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -1518,11 +1571,11 @@
         "type": 2
       },
       "seed": 1850501473,
-      "version": 1,
-      "versionNonce": 776605305,
+      "version": 2,
+      "versionNonce": 1366756816,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -1532,7 +1585,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -1547,15 +1600,16 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "ab"
     },
     {
       "id": "arr51",
       "type": "arrow",
       "x": 1060,
-      "y": 482.0,
+      "y": 482,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -1570,11 +1624,11 @@
         "type": 2
       },
       "seed": 1239854304,
-      "version": 1,
-      "versionNonce": 412936599,
+      "version": 2,
+      "versionNonce": 1873114928,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -1584,7 +1638,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -1599,15 +1653,16 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "ac"
     },
     {
       "id": "arr52",
       "type": "arrow",
       "x": 1310,
-      "y": 482.0,
+      "y": 482,
       "width": 40,
-      "height": 0.0,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#2f9e44",
       "backgroundColor": "transparent",
@@ -1622,11 +1677,11 @@
         "type": 2
       },
       "seed": 1513056505,
-      "version": 1,
-      "versionNonce": 149368554,
+      "version": 2,
+      "versionNonce": 1626657744,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -1636,7 +1691,7 @@
         ],
         [
           40,
-          0.0
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -1651,14 +1706,15 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "ad"
     },
     {
       "id": "arr53",
       "type": "arrow",
-      "x": 1455.0,
+      "x": 1455,
       "y": 294,
-      "width": 500.0,
+      "width": 500,
       "height": 134,
       "angle": 0,
       "strokeColor": "#e8590c",
@@ -1674,11 +1730,11 @@
         "type": 2
       },
       "seed": 98407117,
-      "version": 1,
-      "versionNonce": 1420052173,
+      "version": 2,
+      "versionNonce": 1951338800,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "points": [
@@ -1687,7 +1743,7 @@
           0
         ],
         [
-          -500.0,
+          -500,
           134
         ]
       ],
@@ -1703,7 +1759,8 @@
         "gap": 6
       },
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "index": "ae"
     },
     {
       "id": "el54",
@@ -1724,11 +1781,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 489407816,
-      "version": 1,
-      "versionNonce": 1660151622,
+      "version": 2,
+      "versionNonce": 147446224,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "backend loads the trained model at startup",
@@ -1739,7 +1796,9 @@
       "containerId": null,
       "originalText": "backend loads the trained model at startup",
       "lineHeight": 1.25,
-      "baseline": 11
+      "baseline": 11,
+      "index": "af",
+      "autoResize": true
     },
     {
       "id": "el55",
@@ -1762,13 +1821,14 @@
         "type": 3
       },
       "seed": 621455911,
-      "version": 1,
-      "versionNonce": 171351961,
+      "version": 2,
+      "versionNonce": 615869232,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "ag"
     },
     {
       "id": "el56",
@@ -1789,11 +1849,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 1836780820,
-      "version": 1,
-      "versionNonce": 499914621,
+      "version": 2,
+      "versionNonce": 1007558608,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "The 3 output classes  (occlusion level)",
@@ -1804,7 +1864,9 @@
       "containerId": null,
       "originalText": "The 3 output classes  (occlusion level)",
       "lineHeight": 1.25,
-      "baseline": 14
+      "baseline": 14,
+      "index": "ah",
+      "autoResize": true
     },
     {
       "id": "el57",
@@ -1827,13 +1889,14 @@
         "type": 3
       },
       "seed": 1860759514,
-      "version": 1,
-      "versionNonce": 216898921,
+      "version": 2,
+      "versionNonce": 1799390512,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "ai"
     },
     {
       "id": "el58",
@@ -1854,22 +1917,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 816314860,
-      "version": 1,
-      "versionNonce": 596943773,
+      "version": 2,
+      "versionNonce": 1255777744,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "clear  \u2014  ~0% occlusion  (assumed easy to pick)",
+      "text": "clear  —  ~0% occlusion  (assumed easy to pick)",
       "fontSize": 15,
       "fontFamily": 2,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "clear  \u2014  ~0% occlusion  (assumed easy to pick)",
+      "originalText": "clear  —  ~0% occlusion  (assumed easy to pick)",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "aj",
+      "autoResize": true
     },
     {
       "id": "el59",
@@ -1892,13 +1957,14 @@
         "type": 3
       },
       "seed": 973691210,
-      "version": 1,
-      "versionNonce": 1365121944,
+      "version": 2,
+      "versionNonce": 626548528,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "ak"
     },
     {
       "id": "el60",
@@ -1919,22 +1985,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 1791238512,
-      "version": 1,
-      "versionNonce": 783471137,
+      "version": 2,
+      "versionNonce": 1111780304,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "partially_occluded  \u2014  ~25% occlusion",
+      "text": "partially_occluded  —  ~25% occlusion",
       "fontSize": 15,
       "fontFamily": 2,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "partially_occluded  \u2014  ~25% occlusion",
+      "originalText": "partially_occluded  —  ~25% occlusion",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "al",
+      "autoResize": true
     },
     {
       "id": "el61",
@@ -1957,13 +2025,14 @@
         "type": 3
       },
       "seed": 349297013,
-      "version": 1,
-      "versionNonce": 794957573,
+      "version": 2,
+      "versionNonce": 1130690864,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "am"
     },
     {
       "id": "el62",
@@ -1984,22 +2053,24 @@
       "frameId": null,
       "roundness": null,
       "seed": 762938026,
-      "version": 1,
-      "versionNonce": 449912920,
+      "version": 2,
+      "versionNonce": 1281782224,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "heavily_occluded  \u2014  ~50% occlusion  (assumed hard to pick)",
+      "text": "heavily_occluded  —  ~50% occlusion  (assumed hard to pick)",
       "fontSize": 15,
       "fontFamily": 2,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "heavily_occluded  \u2014  ~50% occlusion  (assumed hard to pick)",
+      "originalText": "heavily_occluded  —  ~50% occlusion  (assumed hard to pick)",
       "lineHeight": 1.25,
-      "baseline": 12
+      "baseline": 12,
+      "index": "an",
+      "autoResize": true
     },
     {
       "id": "el63",
@@ -2022,13 +2093,14 @@
         "type": 3
       },
       "seed": 1439190227,
-      "version": 1,
-      "versionNonce": 573330499,
+      "version": 2,
+      "versionNonce": 1758352176,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
-      "locked": false
+      "locked": false,
+      "index": "ao"
     },
     {
       "id": "el64",
@@ -2049,11 +2121,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 1507147648,
-      "version": 1,
-      "versionNonce": 1467907437,
+      "version": 2,
+      "versionNonce": 274184144,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
       "text": "In one sentence",
@@ -2064,7 +2136,9 @@
       "containerId": null,
       "originalText": "In one sentence",
       "lineHeight": 1.25,
-      "baseline": 14
+      "baseline": 14,
+      "index": "ap",
+      "autoResize": true
     },
     {
       "id": "el65",
@@ -2085,26 +2159,30 @@
       "frameId": null,
       "roundness": null,
       "seed": 1391645398,
-      "version": 1,
-      "versionNonce": 153335724,
+      "version": 2,
+      "versionNonce": 201092400,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1735000000000,
+      "updated": 1788051905499,
       "link": null,
       "locked": false,
-      "text": "PickSense estimates how visually blocked an object is, and uses that\nocclusion level as a proxy for how easy the object would be to pick.\n\nTraining (lane 1) is done once and produces the .pth model file.\nThe web app (lane 2) only runs predictions \u2014 it never retrains.\n\nNote: it does NOT yet predict real robotic grasp success.",
+      "text": "PickSense estimates how visually blocked an object is, and uses that\nocclusion level as a proxy for how easy the object would be to pick.\n\nTraining (lane 1) is done once and produces the .pth model file.\nThe web app (lane 2) only runs predictions — it never retrains.\n\nNote: it does NOT yet predict real robotic grasp success.",
       "fontSize": 14,
       "fontFamily": 2,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "PickSense estimates how visually blocked an object is, and uses that\nocclusion level as a proxy for how easy the object would be to pick.\n\nTraining (lane 1) is done once and produces the .pth model file.\nThe web app (lane 2) only runs predictions \u2014 it never retrains.\n\nNote: it does NOT yet predict real robotic grasp success.",
+      "originalText": "PickSense estimates how visually blocked an object is, and uses that\nocclusion level as a proxy for how easy the object would be to pick.\n\nTraining (lane 1) is done once and produces the .pth model file.\nThe web app (lane 2) only runs predictions — it never retrains.\n\nNote: it does NOT yet predict real robotic grasp success.",
       "lineHeight": 1.25,
-      "baseline": 11
+      "baseline": 11,
+      "index": "aq",
+      "autoResize": true
     }
   ],
   "appState": {
-    "gridSize": null,
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
     "viewBackgroundColor": "#ffffff"
   },
   "files": {}

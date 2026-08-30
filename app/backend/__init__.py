@@ -1,1 +1,0 @@
-"""PickSense inference backend."""
