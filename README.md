@@ -1,28 +1,72 @@
 # PickSense
 
-PickSense is a computer vision learning project that explores whether a Vision Transformer (ViT) can classify an object's **pickability from visual occlusion**.
+PickSense is a computer vision project that classifies the visual occlusion of an object as:
 
-## Live demo
+- **Clear**
+- **Partially occluded**
+- **Heavily occluded**
 
-The app is deployed on Hugging Face Spaces: **[Thany/PickSense](https://huggingface.co/spaces/Thany/PickSense)**
+Visual occlusion is used as a proxy for how difficult an object may be to identify and pick.
 
-## Visual overview (start here)
+> PickSense does not currently evaluate grasp geometry, reachability, collision risk, or physical grasp success.
 
-New to the project? Open [`docs/picksense_system_overview.excalidraw`](docs/picksense_system_overview.excalidraw)
-for a one-page diagram of how everything fits together. It shows the two halves
-of the system side by side:
+## Live application
 
-1. **Training** — download data, build a balanced dataset, and train the ViT
-   once to produce the `pretrained_vit_picksense.pth` model file.
-2. **Inference** — the web app loads that model file and predicts the occlusion
-   level of an uploaded image (it never retrains).
+Try PickSense using the deployed Hugging Face application:
 
-To view or edit it, drag the file onto [excalidraw.com](https://excalidraw.com)
-(or use the *Excalidraw* VS Code extension).
+### [Open PickSense on Hugging Face Spaces](https://huggingface.co/spaces/Thany/picksense)
 
-## Project objective
+Direct application URL:
 
-The current objective is to classify an image into one of three occlusion-based pickability categories:
+**<https://thany-picksense.hf.space>**
+
+## Application preview
+
+[![PickSense Hugging Face application](docs/images/picksense-hugging-face-app.png)](https://huggingface.co/spaces/Thany/picksense)
+
+Click the image to open the interactive application. Upload an object image to receive the probability for each occlusion class.
+
+> The preview image must be saved as  
+> `docs/images/picksense-hugging-face-app.png`.
+
+## How it works
+
+```text
+Uploaded image
+      │
+      ▼
+Convert image to RGB
+      │
+      ▼
+Resize, crop, and normalize
+      │
+      ▼
+PickSense EfficientNet-B2 model
+      │
+      ▼
+Softmax probabilities
+      │
+      ├── Clear
+      ├── Heavily occluded
+      └── Partially occluded
+```
+
+The live application uses a trained EfficientNet-B2 classifier. The model is loaded once when the Hugging Face Space starts and is placed on a temporary ZeroGPU allocation when inference is requested.
+
+The application performs inference only. Uploading an image does not retrain the model.
+
+## Dataset
+
+PickSense uses images from the `occlusion` condition of the [OpenLORIS-Object dataset](https://www.kaggle.com/datasets/zhedamai/openlorisobject).
+
+The prepared dataset contains 3,600 balanced images:
+
+| Split | Images per class | Total |
+|---|---:|---:|
+| Training | 1,000 | 3,000 |
+| Testing | 200 | 600 |
+
+The three dataset classes are:
 
 | Class | OpenLORIS tasks | Approximate occlusion |
 |---|---|---:|
@@ -30,147 +74,111 @@ The current objective is to classify an image into one of three occlusion-based 
 | `partially_occluded` | `task4`, `task5`, `task6` | 25% |
 | `heavily_occluded` | `task7`, `task8`, `task9` | 50% |
 
-Occlusion is used as a **proxy for pickability**:
+The original OpenLORIS training and testing boundaries are preserved to prevent data leakage.
 
-- A clear object is assumed to be easier to identify and pick.
-- A partially occluded object may be more difficult to pick.
-- A heavily occluded object is assumed to be the most difficult to pick.
-
-> This project currently predicts visual occlusion categories. It does not yet measure grasp geometry, physical reachability, collision risk, or real robotic grasp success.
-
-## Dataset
-
-The dataset is prepared by `notebooks/00_download_prepare_data.ipynb`, which downloads the OpenLORIS-Object dataset from Kaggle:
-
-[OpenLORIS-Object Dataset](https://www.kaggle.com/datasets/zhedamai/openlorisobject)
-
-The relevant images are taken from the dataset's `occlusion` condition. The original OpenLORIS train and test splits are preserved.
-
-Everything is stored **permanently on Google Drive** (not under `/content/`, which is wiped when the Colab runtime disconnects):
+The dataset is stored outside the Git repository in Google Drive:
 
 ```text
 /content/drive/MyDrive/PickSense/data/
-├── raw/openloris/occlusion/     # OpenLORIS occlusion subset (downloaded once)
-└── picksense_mini/              # balanced 3,600-image dataset
-    ├── train/{clear, partially_occluded, heavily_occluded}/   # 1,000 each
-    └── test/{clear, partially_occluded, heavily_occluded}/    # 200 each
+├── raw/
+│   └── openloris/
+│       └── occlusion/
+└── picksense_mini/
+    ├── train/
+    │   ├── clear/
+    │   ├── heavily_occluded/
+    │   └── partially_occluded/
+    └── test/
+        ├── clear/
+        ├── heavily_occluded/
+        └── partially_occluded/
 ```
 
-`picksense_mini` is a balanced dataset (3,000 train + 600 test = 3,600 images). Its images are **copied** (not symlinked) so they persist on Drive, and sampling uses `random.seed(42)` for reproducibility. Train images are drawn from `occlusion/train` and test images from `occlusion/test`, so no image is shared between the two splits.
+## Project workflow
 
-## Current workflow
+The project is organized around three notebooks:
 
-Dataset preparation and modelling are split into two notebooks so the dataset is downloaded **once** instead of on every runtime restart.
+### 1. Prepare the dataset
 
-**`00_download_prepare_data.ipynb`** — run once, or whenever the data changes:
+`notebooks/00_download_prepare_data.ipynb`
 
-1. Mounts Google Drive.
-2. Downloads OpenLORIS-Object with `kagglehub` **only if it is missing**.
-3. Persists the `occlusion` subset to Drive so it survives runtime restarts.
-4. Builds the balanced `picksense_mini` dataset **only if it is missing**.
-5. Prints a verification summary (paths, per-class counts, totals, disk size).
+- Downloads the OpenLORIS-Object dataset.
+- Extracts the relevant occlusion images.
+- Creates balanced training and testing splits.
+- Stores the prepared dataset in Google Drive.
+- Reuses existing data instead of downloading it again.
 
-**`01_picksense_main.ipynb`** — normal work; it **never downloads** anything:
+### 2. Train and evaluate
 
-1. Mounts Google Drive and checks that `picksense_mini` exists (otherwise it tells you to run `00_download_prepare_data.ipynb` first).
-2. Installs and imports PyTorch dependencies.
-3. Creates PyTorch `ImageFolder` datasets.
-4. Resizes images to `224 × 224` and builds training/testing `DataLoader` objects.
-5. Replicates the Vision Transformer (ViT) architecture from the Learn PyTorch course.
-6. Trains and evaluates the model.
+`notebooks/01_picksense_main.ipynb`
 
-## Web application
+- Loads the prepared dataset.
+- Creates PyTorch datasets and data loaders.
+- Trains and evaluates the original PickSense model.
+- Saves the resulting model checkpoint.
 
-The `app/` directory contains a React + Vite frontend and a FastAPI + PyTorch
-inference backend. It loads the trained pretrained-ViT checkpoint once at API
-startup and returns all three softmax probabilities for an uploaded image.
+### 3. Compare and deploy models
 
-See [app/README.md](app/README.md) for checkpoint placement and local startup
-commands. The web app performs inference only; it never retrains the model.
+`notebooks/model_deployment.ipynb`
 
-## Model approach
-
-The project follows the ViT paper-replication approach from Learn PyTorch.
-
-A ViT processes an image by:
-
-1. Resizing the image to `224 × 224`.
-2. Dividing it into fixed-size patches.
-3. Converting each patch into an embedding.
-4. Adding class and positional embeddings.
-5. Processing the sequence with Transformer encoder blocks.
-6. Using the class token to predict one of the three output classes.
-
-Inference uses the pretrained backbone's own preprocessing
-(`ViT_B_16_Weights.DEFAULT.transforms()`): resize to 256, center-crop to 224,
-then normalize with ImageNet statistics.
-
-## Progressive data training
-
-The main notebook can train on a deterministic, class-balanced percentage of
-the prepared training set. Change these values in the DataLoader cell:
-
-```python
-TRAIN_PERCENTAGE = 100 # Use the complete prepared training set
-BATCH_SIZE = 8         # Reduce to 4, 2, or 1 after a CUDA out-of-memory error
-DATA_SEED = 42
-```
-
-Keep `DATA_SEED` fixed when comparing percentages. Each larger percentage then
-contains every image selected by the smaller percentages. Evaluation always
-uses 100% of the test set, so loss and accuracy remain comparable across runs.
-
-Dataset percentage and GPU memory solve different problems: a larger percentage
-adds more batches per epoch, while `BATCH_SIZE` determines the GPU memory needed
-for one training step.
-
-`picksense_mini` currently has 1,000 training images per class. A 100% run uses
-all 3,000 training images. Lower percentages remain useful for quick experiments,
-but final comparisons should use 100% of the prepared pool.
+- Trains and compares EfficientNet-B2 and ViT models.
+- Measures accuracy, model size, and CPU inference time.
+- Creates the Gradio application.
+- Packages the EfficientNet-B2 checkpoint and deployment files.
+- Uploads the application to Hugging Face Spaces.
 
 ## Repository structure
 
 ```text
 picksense/
-├── app/                    # web app (inference)
-│   ├── backend/            # FastAPI API + model loading
-│   └── frontend/           # React + Vite UI
-├── notebooks/              # data preparation + training
-├── src/                    # training / dataset utilities
-├── scripts/                # offline evaluation / verification
-├── models/                 # trained checkpoint (not committed to Git)
-├── docs/                   # system overview diagram
-└── README.md
+├── app/                              # Legacy local web application
+│   ├── backend/                      # FastAPI inference backend
+│   └── frontend/                     # Frontend application
+├── data/                             # Local data-related files
+├── docs/                             # Documentation and application images
+│   └── images/
+│       └── picksense-hugging-face-app.png
+├── models/                           # Locally stored model checkpoints
+│   └── pretrained_vit_picksense.pth
+├── notebooks/
+│   ├── 00_download_prepare_data.ipynb
+│   ├── 01_picksense_main.ipynb
+│   └── model_deployment.ipynb
+├── reports/                          # Experiment reports and results
+├── scripts/                          # Project scripts
+├── src/                              # Reusable dataset and training code
+├── .gitignore
+├── README.md
+└── requirements.txt
 ```
 
-The dataset itself lives on Google Drive under `/content/drive/MyDrive/PickSense/data/` and is **not** committed to Git.
+The root `app/` directory is a legacy local application. It is not used by the current Hugging Face deployment.
 
-## Getting started
+## Hugging Face deployment structure
 
-### Option 1: Google Colab
-
-Google Colab is the simplest environment for running the notebooks.
-
-Clone the repository in Colab:
-
-```bash
-git clone https://github.com/thany-8/picksense.git
-cd picksense
-```
-
-Then, the first time (or whenever the data changes), run:
+The deployment notebook creates a separate, self-contained application directory:
 
 ```text
-notebooks/00_download_prepare_data.ipynb
+demos/
+└── picksense/
+    ├── README.md
+    ├── app.py
+    ├── model.py
+    ├── requirements.txt
+    ├── pretrained_effnetb2_picksense.pth
+    └── examples/
+        ├── clear_example.jpg
+        ├── heavily_occluded_example.jpg
+        └── partially_occluded_example.jpg
 ```
 
-For all normal work (training, evaluation), run:
+The contents of `demos/picksense/` are uploaded to the root of the Hugging Face Space.
 
-```text
-notebooks/01_picksense_main.ipynb
-```
+The deployment files are generated in the notebook environment, so the `demos/` directory may not appear in the local repository until the deployment cells are run or the generated package is downloaded.
 
-### Option 2: Local development
+## Running the notebooks
+
+### Google Colab
 
 Clone the repository:
 
@@ -179,35 +187,73 @@ git clone https://github.com/thany-8/picksense.git
 cd picksense
 ```
 
-Create and activate a virtual environment on macOS:
+Run the dataset preparation notebook once:
+
+```text
+notebooks/00_download_prepare_data.ipynb
+```
+
+Then use either of the following:
+
+```text
+notebooks/01_picksense_main.ipynb
+notebooks/model_deployment.ipynb
+```
+
+The notebooks use Google Drive paths under:
+
+```text
+/content/drive/MyDrive/PickSense/
+```
+
+## Running the deployment application locally
+
+Download or generate the `demos/picksense/` directory, then run:
 
 ```bash
+cd demos/picksense
+
 python3 -m venv .venv
 source .venv/bin/activate
-```
 
-Install the main dependencies:
-
-```bash
 python3 -m pip install --upgrade pip
-python3 -m pip install torch torchvision torchaudio matplotlib pillow torchinfo kagglehub jupyter
+python3 -m pip install -r requirements.txt
+
+python3 app.py
 ```
 
-Start Jupyter:
+Open the local Gradio URL printed in the terminal.
 
-```bash
-jupyter notebook notebooks/01_picksense_main.ipynb
-```
+The deployed application expects these files to be in the same directory:
 
-The notebooks are written for Colab and use Google Drive paths (`/content/drive/MyDrive/PickSense/...`). To run locally, either build the dataset with `src/create_mini_dataset.py` and update the paths in the notebooks, or use the Colab option above.
+- `app.py`
+- `model.py`
+- `requirements.txt`
+- `pretrained_effnetb2_picksense.pth`
+- `examples/`
+
+## Model limitations
+
+PickSense currently predicts visual occlusion rather than real robotic pick success.
+
+Performance may vary for:
+
+- Images captured outside the OpenLORIS environment.
+- Unfamiliar objects or backgrounds.
+- Poor lighting and motion blur.
+- Occlusion patterns that differ from the training dataset.
+- Images containing several competing objects.
 
 ## Future work
 
-- Investigate labels based on real robotic grasp success rather than occlusion alone.
-- Improve real-world (phone-photo) generalization.
+- Evaluate the model using real robotic grasp outcomes.
+- Improve generalization to phone and real-world warehouse images.
+- Add grasp geometry and reachability information.
+- Evaluate confidence calibration.
+- Test additional model architectures and datasets.
 
-## Project status
-
-The ViT is trained, the inference web app is implemented, and it is deployed on Hugging Face Spaces (see [Live demo](#live-demo)). The dataset preparation, training, and evaluation pipeline are all in place.
+## License and data attribution
 
 The OpenLORIS-Object dataset remains subject to its original license and terms of use.
+
+Project source code and model artifacts should be used according to the licenses included with this repository and its dependencies.
