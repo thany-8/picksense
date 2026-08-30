@@ -22,7 +22,7 @@ Direct application URL:
 
 ## Application preview
 
-[![PickSense Hugging Face application](docs/images/picksense-hugging-face-app.png)](https://huggingface.co/spaces/Thany/picksense)
+[![PickSense Hugging Face application](image.png)](https://huggingface.co/spaces/Thany/picksense)
 
 Click the image to open the interactive application. Upload an object image to receive the probability for each occlusion class.
 
