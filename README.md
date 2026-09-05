@@ -12,9 +12,7 @@ Visual occlusion is used as a proxy for how difficult an object may be to identi
 
 ## Video presentation
 
-▶️ [Watch the PickSense video presentation](docs/videos/picksense-presentation.mp4)
-
-Clicking the link opens the video in GitHub's built-in player.
+https://github.com/user-attachments/assets/a8b1f154-63a3-417b-8103-14c4472efe66
 
 ## Live application
 
