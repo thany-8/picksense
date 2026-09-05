@@ -10,6 +10,12 @@ Visual occlusion is used as a proxy for how difficult an object may be to identi
 
 > PickSense does not currently evaluate grasp geometry, reachability, collision risk, or physical grasp success.
 
+## Video presentation
+
+▶️ [Watch the PickSense video presentation](docs/videos/picksense-presentation.mp4)
+
+Clicking the link opens the video in GitHub's built-in player.
+
 ## Live application
 
 Try PickSense using the deployed Hugging Face application:
